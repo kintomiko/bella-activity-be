@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <context:component-scan base-package="org.bella.fanclub.activity"/>
+
+       <bean id="mongoClient" class="com.mongodb.MongoClient">
+              <constructor-arg name="host" value="127.0.0.1" />
+              <constructor-arg name="port" value="27017" />
+       </bean>
+
+       <bean id="activityDao" class="org.kin.common.GenericDAO">
+              <constructor-arg type="java.lang.Class">
+                     <value>org.bella.fanclub.activity.modules.Activity</value>
+              </constructor-arg>
+       </bean>
+
+       <bean id="fileDao" class="org.kin.common.GenericDAO">
+              <constructor-arg type="java.lang.Class">
+                     <value>org.bella.fanclub.activity.modules.DBFile</value>
+              </constructor-arg>
+       </bean>
+
+       <bean id="fileService" class="org.bella.fanclub.activity.services.impl.FileServiceImpl"/>
+
+       <bean id="mongoConnector" class="org.kin.common.MongoConnector">
+              <constructor-arg index="0" value="activity"/>
+              <constructor-arg index="1" ref="mongoClient"/>
+       </bean>
+</beans>
